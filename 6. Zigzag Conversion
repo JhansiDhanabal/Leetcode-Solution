@@ -1,0 +1,33 @@
+public String convert(String s, int numRows) {
+        if(numRows==1)
+            return s;
+        int diff = numRows*2-2;
+        int n = s.length();
+        StringBuilder str = new StringBuilder();
+        for(int i=0;i<numRows && i<n;i++){
+            boolean flag = true;
+            if(i==0 || i==numRows-1)
+                flag = false;
+            str.append(s.charAt(i));
+            int pos = i+diff;
+            if(flag){
+                int prev = pos-i*2;
+                while(prev<n)
+                {
+                    str.append(s.charAt(prev));
+                    if(pos<n)
+                        str.append(s.charAt(pos));
+                    pos += diff;
+                    prev = pos-i*2;
+                }
+            }
+            else{
+                while(pos<n)
+                {
+                    str.append(s.charAt(pos));
+                    pos += diff;
+                }
+            }
+        }
+        return str.toString();
+    }

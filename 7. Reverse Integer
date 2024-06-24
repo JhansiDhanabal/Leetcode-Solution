@@ -1,0 +1,17 @@
+public int reverse(int x) {
+       String str = String.valueOf(x);
+       if(x<0){
+           str = str.substring(1);
+       }
+       StringBuilder s = new StringBuilder();
+       s.append(str);
+       s.reverse();
+       try{
+           int y = Integer.parseInt(s.toString());
+            if(x<0)
+                    y = y*-1;
+            return y;
+        }catch(Exception e){
+            return 0;
+        }
+    }

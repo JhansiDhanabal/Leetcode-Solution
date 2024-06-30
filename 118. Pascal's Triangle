@@ -1,0 +1,56 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> arr = new ArrayList<>();
+        arr.add(new ArrayList<>());
+        arr.get(arr.size()-1).add(1);
+        if(numRows==1)
+            return arr;
+        arr.add(new ArrayList<>());
+        arr.get(arr.size()-1).add(1);
+        arr.get(arr.size()-1).add(1);
+        if(numRows == 2)
+            return arr;
+        for(int i=2;i<numRows;i++){
+            arr.add(new ArrayList<>());
+            arr.get(arr.size()-1).add(1);
+            int n = arr.size()-2;
+            for(int j=0;j<i-1;j++){
+                int u = arr.get(n).get(j);
+                int v = arr.get(n).get(j+1);
+                arr.get(arr.size()-1).add(u+v);
+            }
+            arr.get(arr.size()-1).add(1);
+        }
+        return arr;
+    }
+}
+
+class Solution {
+
+    List<Integer> gen(int r)
+    {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        int ans=1;
+        for(int i=1;i<r;i++)
+        {
+            ans=ans*(r-i);
+            ans=ans/i;
+            list.add(ans);
+        }
+
+        return list;
+    }
+
+    public List<List<Integer>> generate(int n) {
+        
+        List<List<Integer>> list = new ArrayList<>();
+        for(int i=1;i<=n;i++)
+        {
+            list.add(gen(i));
+        }
+
+        return list;
+
+    }
+}

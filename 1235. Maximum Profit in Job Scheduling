@@ -1,0 +1,55 @@
+class Solution {
+    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+        ArrayList<knapsack>arr = new ArrayList<>();
+        for(int i=0;i<startTime.length; i++){
+            arr.add(new knapsack(startTime[i], endTime[i], profit[i]));
+        }
+        Comparator<knapsack>comparator = new Comparator<>(){
+            @Override
+            public int compare(knapsack o1, knapsack o2){
+                return o1.start-o2.start;
+            }
+        };
+        Collections.sort(arr, comparator);
+        int[] dp = new int[arr.size()];
+        Arrays.fill(dp, -1);
+        return max_profit(arr, 0, dp);
+    }
+    public static int max_profit(ArrayList<knapsack>arr, int index, int dp[]){
+        if(index>=arr.size())
+            return 0;
+        
+        if(dp[index]!=-1)
+            return dp[index];
+        
+        int newprev = getnextindex(arr, arr.get(index).end);
+        int option1 = arr.get(index).profit + max_profit(arr, newprev, dp);
+        int option2 = max_profit(arr, index+1, dp);
+        int maximum = Math.max(option1, option2);
+        return dp[index] = maximum;
+    }
+    public static int getnextindex(ArrayList<knapsack> arr, int val){
+        int low = 0;
+        int high = arr.size();
+        while(low<high){
+            int mid = low+(high-low)/2;
+            if(arr.get(mid).start<val){
+                low = mid+1;
+            }
+            else{
+                high = mid;
+            }
+        }
+        return high;
+    }
+}
+class knapsack{
+    int start;
+    int end;
+    int profit;
+    knapsack(int s, int e, int p){
+        this.start = s;
+        this.end = e;
+        this.profit = p;
+    }
+}

@@ -1,0 +1,31 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+    List<String>ans = new ArrayList<>();
+    if(digits.length()<1){
+        return ans;
+    }
+    String string[]={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    int i,index,n=1;
+    String str[]=new String[digits.length()];
+    for(i=0;i<digits.length();i++){
+        str[i] = string[digits.charAt(i)-'0'];
+        n *= str[i].length();
+    }
+    String result[] = new String[n];
+    for (i = 0; i < n; i++) {
+        result[i] ="a".repeat(digits.length());
+    }
+    for (i = 0; i < n; i++) {
+        index = i;
+        for (int j = digits.length() - 1; j >= 0; j--) {
+            result[i] = result[i].substring(0,j)+str[j].charAt(index % str[j].length())+result[i].substring(j+1);
+            index /= str[j].length();
+        }
+    }
+    
+    for(i=0;i<n;i++){
+        ans.add(result[i]);
+    }
+    return ans;
+    }
+}

@@ -1,0 +1,52 @@
+class Solution {
+    public boolean isValid(String s) {
+        char[] stack = new char[s.length()];
+        int i = -1;
+        for(char ch : s.toCharArray()){
+            if(ch == '{' || ch == '[' || ch == '('){
+                stack[++i] = ch;
+            }else{
+                if(i >= 0 && ((stack[i] == '(' && ch == ')') || (stack[i] == '{' && ch == '}')||
+                (stack[i] == '[' && ch == ']'))){
+                    i--;
+                }else{
+                    return false;
+                }
+            }
+        }
+        if(i != -1) return false;
+        return true;
+    }
+
+    
+}
+
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character>stack = new Stack<>();
+        char ch;
+        for(int i=0;i<s.length();i++){
+            ch = s.charAt(i);
+            if(ch=='(' || ch=='{' || ch=='[')
+                stack.push(ch);
+            else if(ch==')')
+            {
+                if(stack.size() == 0 || (stack.size()>0 && stack.pop()!='('))
+                    return false;
+            }
+            else if(ch=='}')
+            {
+                if(stack.size() == 0 || (stack.size()>0 && stack.pop()!='{'))
+                    return false;
+            }
+            else if(ch==']')
+            {
+                if(stack.size() == 0 || (stack.size()>0 && stack.pop()!='['))
+                    return false;
+            }
+        }
+        if(stack.size()>0)
+            return false;
+        return true;
+    }
+}

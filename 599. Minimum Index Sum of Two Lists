@@ -1,0 +1,61 @@
+class Solution {
+    public String[] findRestaurant(String[] list1, String[] list2) {
+        HashMap<String, Integer> map = new HashMap<>();
+        int i, n = list1.length, m = list2.length;
+        for(i=0;i<n;i++){
+            map.put(list1[i], i);
+        }
+        int max = Integer.MAX_VALUE, sum;
+        ArrayList<String> ans = new ArrayList<>();
+        for(i=0;i<m;i++){
+            if(map.containsKey(list2[i]))
+            {
+                sum = i+map.get(list2[i]);
+                if(sum<max) {
+                    max = sum;
+                    ans.clear();
+                    ans.add(list2[i]);
+                }
+                else if(sum==max){
+                    ans.add(list2[i]);
+                }
+            }
+        }
+        String str[] = new String[ans.size()];
+        i = 0;
+        for(String s : ans)
+            str[i++] = s;
+        return str;
+    }
+}
+
+class Solution {
+    public String[] findRestaurant(String[] list1, String[] list2) {
+        ArrayList<String>arr = new ArrayList<>();
+        int min = Integer.MAX_VALUE;
+        for(int i=0;i<list1.length;i++){
+            String str = list1[i];
+            for(int j=0;j<list2.length;j++){
+                if(list2[j].equals(str))
+                {
+                    if(i+j<min)
+                    {
+                        arr.clear();
+                        arr.add(str);
+                        min = i+j;
+                    }
+                    else if(i+j == min)
+                        arr.add(str);
+                }
+            }
+            if(i>=min)
+                break;
+        }
+        String string[] = new String[arr.size()];
+        int index = 0;
+        for(String word:arr){
+            string[index++] = word;
+        }
+        return string;
+    }
+}

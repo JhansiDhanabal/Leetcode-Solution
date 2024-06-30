@@ -1,0 +1,35 @@
+class Solution {
+    public List<String> summaryRanges(int[] nums) {
+        List<String>arr = new ArrayList<>();
+        if(nums.length == 0)
+            return arr;
+        if(nums.length == 1)
+        {
+            arr.add(String.valueOf(nums[0]));
+            return arr;
+        }
+        int low = 0;
+        int high = 0;
+        int index = 1;
+        while (index < nums.length){
+            if(nums[index] == nums[high]+1){
+                high = index;
+                index++;
+            }
+            else{
+                if(low == high)
+                    arr.add(String.valueOf(nums[low]));
+                else
+                    arr.add(nums[low]+"->"+nums[high]);
+                low = index;
+                high = index;
+                index++;
+            }
+        }
+        if(low == high)
+            arr.add(String.valueOf(nums[low]));
+        else
+            arr.add(nums[low]+"->"+nums[high]);
+        return arr;
+    }
+}

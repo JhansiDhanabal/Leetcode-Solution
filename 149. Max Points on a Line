@@ -1,0 +1,30 @@
+class Solution {
+    public int maxPoints(int[][] points) {
+        int n = points.length;
+        if(n<=2)
+            return n;
+        int x0, y0, x1, y1, x, y, c, ans = 0;
+        for(int i=0;i<n-2;i++){
+            x0 = points[i][0];y0 = points[i][1];
+            for(int k=i+1;k<n-1;k++){
+                x1 = points[k][0];y1 = points[k][1];
+                c = 2;
+                for(int j=0;j<n;j++){
+                    if(j==i || j==k)
+                        continue;
+                    x = points[j][0]; y = points[j][1];
+                    if(iscolinear(x0, y0, x1, y1, x, y))
+                        c++;
+                }
+                if(ans<c)
+                    ans = c;
+            }
+        }
+        return ans;
+    }
+    public boolean iscolinear(int x0, int y0, int x1, int y1, int x, int y){
+        if((x-x0)*(y1-y0) == (y-y0)*(x1-x0))
+            return true;
+        return false;
+    }
+}

@@ -1,0 +1,120 @@
+class Solution {
+    public void solveSudoku(char[][] board) {
+        checkSolver(board);
+    }
+    public boolean checkSolver(char[][] board){
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(board[i][j]=='.')
+                {
+                    for(char num = '1';num<='9';num++){
+                        if(isvalid(i, j, num, board))
+                        {
+                            board[i][j]=num;
+                            if(checkSolver(board))
+                                return true;
+                            else
+                                board[i][j] = '.';
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public boolean isvalid(int row, int col, char num, char board[][]){
+        int r = row-row%3;
+        int c = col-col%3;
+        for(int i=0;i<9;i++){
+            if(board[i][col]==num)
+                return false;
+        }
+        for(int i=0;i<9;i++){
+            if(board[row][i]==num)
+                return false;
+        }
+        for(int i=r;i<r+3;i++){
+            for(int j=c;j<c+3;j++){
+                if(board[i][j]==num)
+                    return false;
+            }
+        }
+        return true;
+    }
+}
+
+
+
+
+import java.util.*;
+
+class Solution {
+    public void solveSudoku(char[][] board) {
+        List<char[][]> solutions = new ArrayList<>();
+        checkSolver(board, solutions);
+        
+        // Print or use solutions as needed
+        for (char[][] solution : solutions) {
+            printBoard(board, solution);
+            System.out.println(); // To separate different solutions
+        }
+        
+    }
+    
+    public void checkSolver(char[][] board, List<char[][]> solutions) {
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                if(board[i][j] == '.') {
+                    for(char num = '1'; num <= '9'; num++) {
+                        if(isValid(i, j, num, board)) {
+                            board[i][j] = num;
+                            checkSolver(board, solutions);
+                            board[i][j] = '.'; // Backtrack
+                        }
+                    }
+                    return; // Return after trying all possibilities for this cell
+                }
+            }
+        }
+        // If no more empty cells, a solution is found
+        char[][] solution = new char[9][9];
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                solution[i][j] = board[i][j];
+            }
+        }
+        solutions.add(solution);
+    }
+    
+    public boolean isValid(int row, int col, char num, char[][] board) {
+        int r = row - row % 3;
+        int c = col - col % 3;
+        
+        for(int i = 0; i < 9; i++) {
+            if(board[i][col] == num)
+                return false;
+        }
+        for(int i = 0; i < 9; i++) {
+            if(board[row][i] == num)
+                return false;
+        }
+        for(int i = r; i < r + 3; i++) {
+            for(int j = c; j < c + 3; j++) {
+                if(board[i][j] == num)
+                    return false;
+            }
+        }
+        return true;
+    }
+    
+    public void printBoard(char[][] board, char[][] solution) {
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                board[i][j] = solution[i][j];
+                System.out.print(solution[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}

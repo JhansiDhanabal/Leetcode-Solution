@@ -1,0 +1,25 @@
+class Solution {
+    public String[] findWords(String[] words) {
+        String[] map = {"qwertyuiop", "asdfghjkl", "zxcvbnm"};
+        ArrayList<String>arr = new ArrayList<>();
+        for(String word:words){
+            if(same(word.toLowerCase(), map))
+                arr.add(word);
+        }
+        String ans[] = new String[arr.size()];
+        int index=0;
+        for(String word:arr)
+            ans[index++] = word;
+        return ans;
+    }
+    private boolean same(String word, String[] map){
+        int c = map[0].indexOf(word.charAt(0))!=-1?0:map[1].indexOf(word.charAt(0))!=-1?1:2;
+        int next;
+        for(int i=1;i<word.length();i++){
+            next = map[0].indexOf(word.charAt(i))!=-1?0:map[1].indexOf(word.charAt(i))!=-1?1:2;
+            if(c != next)
+                return false;
+        }
+        return true;
+    }
+}

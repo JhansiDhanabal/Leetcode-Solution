@@ -1,0 +1,25 @@
+class Solution {
+    public int countSegments(String s) {
+        int index = 0;
+        int len = s.length();
+        while(index<len && s.charAt(index)==' ')
+            index++;
+        if(index==len)
+            return 0;
+        int count = 1;
+        boolean flag = false;
+        for(;index<len;index++){
+            if(s.charAt(index)==' ')
+            {
+                flag = true;
+                continue;
+            }
+            if(flag){
+                System.out.println(s.charAt(index));
+                flag = false;
+                count += 1;
+            }
+        }
+        return count;
+    }
+}

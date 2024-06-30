@@ -1,0 +1,20 @@
+class Solution {
+    public int projectionArea(int[][] grid) {
+        int overview = 0, x = 0, y = 0;
+        for(int i=0;i<grid.length;i++){
+            int max1 = grid[i][0];
+            int max2 = grid[0][i];
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]>0)
+                    overview++;
+                if(max1 < grid[i][j])
+                    max1 = grid[i][j];
+                if(max2 < grid[j][i])
+                    max2 = grid[j][i];
+            }
+            x += max1;
+            y += max2;
+        }
+        return overview+x+y;
+    }
+}

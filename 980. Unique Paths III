@@ -1,0 +1,55 @@
+class Solution {
+    int c = 0;
+    int orginal=0;
+    public int uniquePathsIII(int[][] grid) {
+        int n = grid.length, m = grid[0].length;
+        boolean flag[][] = new boolean[n][m];
+        int si=0, sj=0;
+        int goali=0,goalj=0; 
+        int count = 1;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1)
+                {
+                    si = i;
+                    sj = j;
+                }
+                else if(grid[i][j]==-1)
+                    flag[i][j] = true;
+                else if(grid[i][j]==2)
+                {
+                    goali = i;
+                    goalj = j;
+                }
+                else
+                    count += 1;
+            }
+        }
+        orginal = count;
+        check(si, sj, goali, goalj, count, n, m, flag);
+        return c;
+    }
+    private void check(int si, int sj, int goali, int goalj,int count, int n, int m, boolean flag[][]){
+        flag[si][sj] = true;
+        System.out.println(si+""+sj+""+count);
+        int x[][] = {{-1, 0}, {0, 1}, {0, -1}, {1, 0}};
+        int u, v;
+        if(count == 0 && si==goali && sj == goalj){
+            c++;
+            flag[si][sj] = false;
+            count = 1;
+            return;
+        }
+        for(int i=0;i<4;i++){
+            u = si+x[i][0];
+            v = sj+x[i][1];
+            if(u<0 || u>=n || v<0 || v>=m)
+                continue;
+            if(flag[u][v]==false)
+                check(u, v, goali, goalj, count-1, n, m, flag);
+        }
+        flag[si][sj]=false;
+        count += 1;
+
+    }
+}

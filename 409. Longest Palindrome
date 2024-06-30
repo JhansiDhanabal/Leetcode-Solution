@@ -1,0 +1,31 @@
+class Solution {
+    public int longestPalindrome(String s) {
+        int alpha[] = new int[52];
+        for(char ch:s.toCharArray()){
+            if(ch>='A' && ch<='Z')
+                alpha[ch - 'A'] += 1;
+            else
+                alpha[ch-'a'+26]+=1;
+        }
+        int sum = 0, odd=0;
+        for(int i=0;i<52;i++){
+            if(alpha[i]%2==0)
+                sum += alpha[i];
+            else if(alpha[i]>1)
+            {
+                if(odd == 0){
+                    sum += alpha[i];
+                    odd = 1;
+                }
+                else{
+                    sum += alpha[i]-1;
+                }
+            }
+            else if(odd == 0){
+                sum += 1;
+                odd = 1;
+            }
+        }
+        return sum;
+    }
+}

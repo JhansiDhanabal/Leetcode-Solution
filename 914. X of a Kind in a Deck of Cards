@@ -1,0 +1,24 @@
+class Solution {
+    public boolean hasGroupsSizeX(int[] deck) {
+        HashMap<Integer, Integer>map = new HashMap<>();
+        for(int i=0;i<deck.length;i++){
+            map.put(deck[i], map.getOrDefault(deck[i], 0)+1);
+        }
+        int c = map.get(deck[0]);
+        for (int val:map.values()){
+            c = hcf(c, val);
+        }
+        if(c==1)
+            return false;
+        return true;
+    }
+    private int hcf(int x,int y){
+        int rem = x%y;
+        while(rem!=0){
+            x = y;
+            y = rem;
+            rem = x%y;
+        }
+        return y;
+    }
+}

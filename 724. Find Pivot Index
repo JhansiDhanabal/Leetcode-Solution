@@ -1,0 +1,19 @@
+class Solution {
+    public int pivotIndex(int[] nums) {
+        int n = nums.length;
+        for(int i=1;i<n;i++)
+            nums[i] += nums[i-1];
+        int left = 0, right = 0;
+        int index = 0;
+        while(index < n)
+        {
+            right = nums[n-1]-nums[index];
+            if(index>0)
+                left = nums[index-1];
+            if(left == right)
+                return index;
+            index++;
+        }
+        return -1;
+    }
+}

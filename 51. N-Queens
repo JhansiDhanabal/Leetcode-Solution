@@ -1,0 +1,73 @@
+class Solution {
+    List<List<String>> list = new ArrayList<>();
+    public List<List<String>> solveNQueens(int n) {
+        int board[][] = new int[n][n];
+        queen(0, n, board);
+        return list;
+    }
+    public void queen(int row, int n, int board[][]){
+        if(row==n)
+            list.add(print(board,n));
+        for(int i=0;i<n;i++){
+            if(issafe(row, i, board,n)){
+                board[row][i] = 1;
+                queen(row+1, n, board);
+                board[row][i] = 0;
+            }
+        }
+    }
+    private boolean issafe(int row, int col, int board[][], int n){
+        for(int i=0;i<n;i++){
+            if(board[i][col]==1)
+                return false;
+        }
+        for(int i=0;i<n;i++){
+            if(board[row][i]==1)
+                return false;
+        }
+        int i=row, j=col;
+        while(i>=0 && j>=0){
+            if(board[i][j]==1)
+                return false;
+            i--;
+            j--;
+        }
+        i = row; j = col;
+        while(i>=0 && j<n){
+            if(board[i][j]==1)
+                return false;
+            i--;
+            j++;
+        }
+        i = row; j = col;
+        while(i<n && j>=0){
+            if(board[i][j]==1)
+                return false;
+            i++;
+            j--;
+        }
+        i = row; j = col;
+        while(i<n && j<n){
+            if(board[i][j]==1)
+                return false;
+            i++;
+            j++;
+        }
+        return true;
+    }
+    public List<String> print(int board[][], int n){
+        StringBuilder str;
+        List<String>arr = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            str = new StringBuilder();
+            for(int j=0;j<n;j++){
+                if(board[i][j]==1)
+                    str.append('Q');
+                else
+                    str.append('.');
+            }
+            arr.add(str.toString());
+        }
+        return arr;
+    }
+}
